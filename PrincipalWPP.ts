@@ -18,7 +18,8 @@ while(status){
 
         case "novoChat":
             let nomeGrupo:string = readline.question("Nome do Grupo: ");
-            console.log(controlador.addGrupo(nomeGrupo));
+            let nomeUserGrupo:string = readline.question("Id do Usuario: ");
+            console.log(controlador.addGrupo(nomeGrupo, nomeUserGrupo));
         break;
 
         case "statusUser":

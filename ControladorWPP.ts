@@ -26,12 +26,22 @@ export class ControladorWPP{
             return this.buscarUser(id).getId + " já existe";
         }     
     }
-
-    public addGrupo(nomeChat:string):void|string{
-        let chat: Chat = new Chat(nomeChat); //no usuario
+    public addGrupo(nomeChat:string,nomeUserGrupo:string):void|string{
+        if(this.buscarGrupo(nomeChat) == undefined){
+            let id:any = this.buscarUser(nomeUserGrupo);
+            if (nomeUserGrupo != undefined) {
+                let chat: Chat = new Chat(nomeChat)
                 this.chats.push(chat)
-                return "Grupo criado";
+                id.addChat(chat);
+                return "Grupo criado!";
+            }else{
+                return "Usuário não existente!"
+            }
+        }else{
+            return "Grupo já existente!";
+        }
     }
+    
 
     public buscarGrupo(nomeChat:string):Chat|undefined{ //igual o buscas usuario
         if(this.chats.length > 0){
@@ -52,7 +62,7 @@ export class ControladorWPP{
     public statusUser(nome:string):string{
         if(this.buscarGrupo(nome) != undefined){
             let nomeGrupoBuscar = this.buscarGrupo(nome);
-            let nomes:string = "[";
+            let nomes:string = "[ ";
             for (let i of nomeGrupoBuscar.getPessoas()){
                 nomes += i.getId() + " ";
             }
